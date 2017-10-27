@@ -59,27 +59,27 @@ set(config_rtps_receive_topics
    )
 ```
 
-> **Caution** At time of writing (August 2017), only the small set of uORB topics listed above are included in our cmake files: **posix_sitl_default.cmake**, **nuttx_px4fmu-v4_default.cmake**, **posix_sdflight_default.cmake**. It is likely you will need to edit your *cmake* file and add additional uORB topics. In future we hope to define a larger standard set.
+> **Caution** 작성 시점(2017년 8월)에는 uORB topic들의 일부 세트만 cmake 파일에 포함되어 있습니다.: **posix_sitl_default.cmake**, **nuttx_px4fmu-v4_default.cmake**, **posix_sdflight_default.cmake**. 추가로 uORB topic을 추가할려면 *cmake* 파일을 여러분이 수정해야합니다. 향후에는 좀더 많은 topic을 포함하는 표준 세트를 정의하리라 기대됩니다.
 
-For *manual code generation* the uORB topics that will be supported by the bridge are specified when you call **generate_microRTPS_bridge.py** (using the `-s`/`--send` and `-r`/`--receive` flags). See [Manual Generation of the Code](../middleware/micrortps_manual_code_generation.md) for more information.
+브리지가 지원하는 uORB topics *수동 코드 생성* 은 **generate_microRTPS_bridge.py** ( `-s`/`--send` and `-r`/`--receive` flags를 사용)를 호출하면 됩니다. 보다 상세한 정보는 [수동 코드 생성](../middleware/micrortps_manual_code_generation.md)을 참고하세요.
 
 
-## Client (PX4 Firmware)
+## Client (PX4 펌웨어)
 
-The *Client* source code is generated, compiled and built into the PX4 firmware as part of the normal build process.
+정상적인 빌드 프로세스로 PX4 펌웨어로 *Client* 소스코드가 생성, 컴파일, 빌드됩니다.
 
-To build and upload the firmware for NuttX/Pixhawk flight controllers:
+NuttX/Pixhawk 비행 제어용 펌웨어를 빌드하고 업로드하기 :
 ```sh
 make px4fmu-v4_default upload
 ```
 
-To build and upload the firmware for Qualcomm Snapdragon Flight:
+Qualcomm Snapdragon Flight용 펌웨어 빌드하고 업로드하기 :
 ```sh
 $ make eagle_default upload
 ```
 
 
-The *Client* application can be launched from [NuttShell/System Console](../debug/system_console.md). The command syntax is shown below (you can specify a variable number of arguments):
+*Client* 어플리케이션은 [NuttShell/System Console](../debug/system_console.md)에서 실행할 수 있습니다. 명령 문법은 아래와 같습니다.(여러분이 직접 여러 가지 인자를 지정할 수 있습니다.) :
 
 ```sh
 > micrortps_client start|stop [options]
@@ -94,7 +94,7 @@ The *Client* application can be launched from [NuttShell/System Console](../debu
   -s <sending port>       UDP port for sending. Default 2020
 ```
 
-By default the *Client* runs for 10000 loops and then stops. To run the *Client* continuously, enter the following command:
+기본적으로 *Client*은 10000 루프를 실행하고 멈춥니다. *Client* 를 연속으로 실행하기 위해서 다음 명령을 입력합니다 :
 
 ```sh
 micrortps_client start -l -1

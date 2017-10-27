@@ -6,9 +6,9 @@
 
 전제 조건:
 
-  * [SITL Simulation](../simulation/sitl.md)
-  * [Gazebo](../simulation/gazebo.md)
-  * [ROS and MAVROS](../simulation/ros_interface.md)
+  * [jMAVSim Simulator](../simulation/jmavsim.md)
+  * [Gazebo Simulator](../simulation/gazebo.md)
+  * [ROS와 MAVROS](../simulation/ros_interface.md)
 
 ### 테스트 실행
 
