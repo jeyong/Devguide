@@ -94,20 +94,20 @@ $ make eagle_default upload
   -s <sending port>       UDP port for sending. Default 2020
 ```
 
-기본적으로 *Client*은 10000 루프를 실행하고 멈춥니다. *Client* 를 연속으로 실행하기 위해서 다음 명령을 입력합니다 :
+기본적으로 *Client*은 10000번 루프를 실행하고 멈춥니다. *Client* 를 연속으로 실행하기 위해서 다음 명령을 입력합니다 :
 
 ```sh
 micrortps_client start -l -1
 ```
 
-> **Note** The PX4 Firmware initialisation code may in future automatically start the *Client* as a permanent daemon process. In the meantime you will need to start the client manually.<!-- at that point, most of this section would move into the "manual generation" doc: https://github.com/PX4/Firmware/pull/7663#issuecomment-317928506 -->
+> **Note** PX4 펌웨어 초기화 코드는 향후에 데몬 프로세스로 자동으로 *Clinet* 를 시작시킬 수도 있습니다. 보통때는 수동으로 client 를 여러분이 직접 시작해야합니다. <!-- 그때가 되면 이 섹션의 대부분 내용을 "수동으로 생성" 문서로 옮겨질 수 있습니다 : https://github.com/PX4/Firmware/pull/7663#issuecomment-317928506 -->
 
 
 ## Agent (Off Board FastRTPS Interface)
 
-The *Agent* code is automatically *generated* when you build the associated PX4 firmware. You can find the source here: **build_BUILDPLATFORM/src/modules/micrortps_bridge/micrortps_agent/**.
+관련 PX4 펌웨어를 빌드할 때, *Agent* 코드는 자동으로 *생성* 됩니다. 소스코드는 다음에 있습니다 : **build_BUILDPLATFORM/src/modules/micrortps_bridge/micrortps_agent/**.
 
-To build the *Agent* application, compile the code:
+*Agent* 어플리케이션을 빌드하기 위해서 코드 컴파일 :
 
 ```sh
 cd src/modules/micrortps_bridge/microRTPS_agent
@@ -116,10 +116,10 @@ cmake ..
 make
 ```
 
-> **Note** To cross-compile for the *Qualcomm Snapdragon Flight* platform see [this link](https://github.com/eProsima/PX4-FastRTPS-PoC-Snapdragon-UDP#how-to-use).
+> **Note** *Qualcomm Snapdragon Flight* 플랫폼 관한 크로스-컴파일은 다음을 참고하세요. [링크](https://github.com/eProsima/PX4-FastRTPS-PoC-Snapdragon-UDP#how-to-use)
 
 
-The command syntax for the *Agent* is listed below:
+*Agent* 관련 명령 문법은 다음과 같습니다. :
 
 ```text
 $ ./micrortps_agent [options]
