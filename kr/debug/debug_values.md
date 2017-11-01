@@ -1,13 +1,11 @@
-# Send and Receive Debug Values
+# 디버그 값 주고 받기
 
-It is often necessary during software development to output individual important numbers.
-This is where the generic `NAMED_VALUE_FLOAT`, `DEBUG` and `DEBUG_VECT` packets of MAVLink come in.
+소프트웨어 개발하면서 중요한 값들을 출력하는 것이 필요합니다. 여기서는 MAVLink의 일반 `NAMED_VALUE_FLOAT`, `DEBUG` 그리고 `DEBUG_VECT` 패킷에 대해서 알아봅니다.
 
-## Mapping between MAVLink Debug Messages and uORB Topics
+## MAVLink 디버그 메시지와 uORB Topics 매핑하기
 
-MAVLink debug messages are translated to/from uORB topics.
-In order to send or receive a MAVLink debug message, you have to respectively publish or subscribe to the corresponding topic.
-Here is a table that summarizes the mapping between MAVLink debug messages and uORB topics:
+MAVLink 디버그 메시지를 uORB topic으로 상호변환합니다. MAVLink 디버그 메시지를 주고 받기 위해서는 각각 대응되는 topic으로 publish나 subscribe해야만 합니다.
+MAVLink 디버그 메시지와 uORB topic간 매핑 요약 테이블은 다음과 같습니다. :
 
 |  MAVLink message  |    uORB topic   |
 |-------------------|-----------------|
@@ -15,16 +13,16 @@ Here is a table that summarizes the mapping between MAVLink debug messages and u
 | DEBUG             | debug_value     |
 | DEBUG_VECT        | debug_vect      |
 
-## Tutorial: Send String / Float Pairs
+## 튜터리얼: String / Float Pairs 보내기
 
-This tutorial shows how to send the MAVLink message `NAMED_VALUE_FLOAT` using the associated uORB topic `debug_key_value`.
+여기서는 관련된 uORB topic `debug_key_value`을 사용해서 MAVLink 메시지 `NAMED_VALUE_FLOAT`을 보내는 방법을 보여줍니다.
 
-The code for this tutorial is available here:
+이 튜터리얼에 대한 코드는 다음에서 찾을 수 있습니다:
 
-  * [Debug Tutorial Code](https://github.com/PX4/Firmware/blob/master/src/examples/px4_mavlink_debug/px4_mavlink_debug.c)
-  * [Enable the tutorial app](https://github.com/PX4/Firmware/tree/master/cmake/configs) by uncommenting / enabling the mavlink debug app in the config of your board
+  * [Debug 튜터리얼 Code](https://github.com/PX4/Firmware/blob/master/src/examples/px4_mavlink_debug/px4_mavlink_debug.c)
+  * [튜터리얼 app 사용하기](https://github.com/PX4/Firmware/tree/master/cmake/configs) 보드의 config에 있는 mavlink debug app을 커멘트 처리를 제거해서 활성화시키세요.
 
-All required to set up a debug publication is this code snippet. First add the header file:
+debug publication을 셋업은 다음과 같이 해주면 됩니다. 먼저 헤더 파일을 추가합니다:
 
 <div class="host-code"></div>
 
@@ -33,7 +31,7 @@ All required to set up a debug publication is this code snippet. First add the h
 #include <uORB/topics/debug_key_value.h>
 ```
 
-Then advertise the debug value topic (one advertisement for different published names is sufficient). Put this in front of your main loop:
+다음으로 debug value topic을 advertise합니다.(다른 published name에 대해서 advertisement 하나면 충분합니다) main 루프 앞에 다음을 추가합니다.:
 
 <div class="host-code"></div>
 
@@ -43,7 +41,7 @@ struct debug_key_value_s dbg = { .key = "velx", .value = 0.0f };
 orb_advert_t pub_dbg = orb_advertise(ORB_ID(debug_key_value), &dbg);
 ```
 
-And sending in the main loop is even simpler:
+그리고 main 루프에서 보내기는 더 간단합니다.:
 
 <div class="host-code"></div>
 
@@ -52,18 +50,18 @@ dbg.value = position[0];
 orb_publish(ORB_ID(debug_key_value), pub_dbg, &dbg);
 ```
 
-> **Caution** Multiple debug messages must have enough time between their respective publishings for Mavlink to process them. This means that either the code must wait between publishing multiple debug messages, or alternate the messages on each function call iteration.
+> **Caution** 여러 debug 메시지들은 Mavlink가 개별적으로 publish할 수 있도록 충분한 시간이 주어져야 합니다. 이 말은 해당 코드는 여러 debug message들이 publish되는 사이를 기다리거나 각 함수 호출에서 번걸아가면서 처리해야한다는 뜻입니다.
 
-The result in QGroundControl then looks like this on the real-time plot:
+결과적으로 QGroundControl에서는 실시간 챠트로 아래와 같이 보입니다:
 
 ![](../../assets/gcs/qgc-debugval-plot.jpg)
 
 
-## Tutorial: Receive String / Float Pairs
+## 튜터리얼: String / Float Pairs 수신하기
 
-The following code snippets show how to receive the `velx` debug variable that was sent in the previous tutorial.
+다음 코드 예제는 이전 튜터리얼에서 보낸 `velx` 디버그 값을 수신하는 방법을 보여줍니다.
 
-First, subscribe to the topic `debug_key_value`:
+먼저 topic `debug_key_value`을 subscribe합니다:
 
 <div class="host-code"></div>
 
@@ -75,7 +73,7 @@ int debug_sub_fd = orb_subscribe(ORB_ID(debug_key_value));
 [...]
 ```
 
-Then poll on the topic:
+다음으로 해당 topic을 poll합니다.:
 
 <div class="host-code"></div>
 
@@ -93,7 +91,7 @@ while (true) {
     [...]
 ```
 
-When a new message is available on the `debug_key_value` topic, do not forget to filter it based on its key attribute in order to discard the messages with key different than `velx`:
+`debug_key_value` topic에서 새로운 메시지가 유효한 상태가 되면, `velx`와 다른 key를 가진 메시지를 제거하기 위해서 key 속성을 기반으로 필터링하는 것을 잊지마세요.:
 
 <div class="host-code"></div>
 

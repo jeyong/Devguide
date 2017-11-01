@@ -89,7 +89,7 @@
   * [FAQ](debug/faq.md)
   * [시스템 콘솔](debug/system_console.md)
   * [시스템 부트](advanced/system_startup.md)
-  * [퍄라미터 & 설정](advanced/parameters_and_configurations.md)
+  * [파라미터 & 설정](advanced/parameters_and_configurations.md)
   * [파라미터 레퍼런스](advanced/parameter_reference.md)
   * [Autopilot 디버깅](debug/gdb_debugging.md)
   * [Sensor/Topic 디버깅](debug/sensor_uorb_topic_debugging.md)

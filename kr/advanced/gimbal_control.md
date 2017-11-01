@@ -67,4 +67,4 @@ vmount test yaw 30
 ```
 시뮬레이션한 짐벌은 자체로 스테빌라이저가 됩니다. mavlink 명령을 보내서 `stabilize` flag가 false로 설정됩니다.
 
-![Gazebo Gimbal Simulation](../../assets/gazebo/gimbal-simulation.png)
+![Gazebo Gimbal 시뮬레이션](../../assets/gazebo/gimbal-simulation.png)
