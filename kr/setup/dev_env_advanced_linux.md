@@ -1,21 +1,21 @@
-# Advanced Linux
+# 고급 Linux
 
-This topic contains advanced installation use-cases.
+이 주제는 고급 설치와 관련된 내용을 다룹니다.
 
-## USB Device Configuration
+## USB Device 설정
 
-Linux users need to explicitly allow access to the USB bus for JTAG programming adapters.
+Linux 사용자는 명시적으로 JTAG 프로그래밍 아답터용 USB bus에 접근이 허용됩니다.
 
-> **Note** For Archlinux: replace the group plugdev with uucp in the following commands
+> **Note** Archlinux의 경우: 아래 명령에서 plugdev 그룹을 uucp로 변경
 
 
-Run a simple `ls` in `sudo` mode to ensure the commands below succeed:
+단순히 `sudo` 모드에서 `ls`를 실행하여 아래와 같이 명령이 동작하는지 확인:
 
 ```sh
 sudo ls
 ```
 
-Then with `sudo` rights temporarily granted, run this command:
+`sudo` 권한을 가진 경우 다음 명령을 실행:
 
 ```sh
 cat > $HOME/rule.tmp <<_EOF
@@ -30,7 +30,7 @@ sudo mv $HOME/rule.tmp /etc/udev/rules.d/10-px4.rules
 sudo /etc/init.d/udev restart
 ```
 
-The user needs to be added to the group **plugdev**:
+해당 사용자를 **plugdev** 그룹에 추가:
 
 ```sh
 sudo usermod -a -G plugdev $USER

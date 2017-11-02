@@ -1,1 +1,1 @@
-# Companion Computers
+# 컴패니온 컴퓨터
