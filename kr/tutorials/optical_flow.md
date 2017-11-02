@@ -26,11 +26,10 @@ optical flow를 계산하는 가장 쉬운 방법은 PX4Flow 보드를 사용하
 
 ![](../../assets/hardware/optical_flow/px4flowalignwithpixhawk.jpg)
 
-##### Custom I2C address
-The default I2C address of the PX4Flow is 0x42, but it can be incremented using the three solder jumpers labeled "I2C BUS ADDR" on the picture above. This is useful if another device has the same address.
-The address increment is equal to the 3-bit value encoded by the jumpers. For example if jumper 0 and 1 are soldered and jumper 2 is unsoldered, the address is incremented by 1\*1 + 1\*2 + 0\*4 = 3, which gives address 0x45.
-If all jumpers are unsoldered, the camera will be automatically discovered by the autopilot firmware.
-If you modify the I2C address of the PX4Flow, make sure to start the PX4 driver with the correct address:
+##### 커스텀 I2C 주소
+PX4Flow의 기본 I2C 주소는 0x42이지만 위 사진에서 "I2C BUS ADDR" 라는 3개 점퍼를 이용해서 증가시킬 수 있습니다. 다른 장치가 동일한 주소를 가지고 있는 경우 유용합니다.
+증가한 주소는 점퍼로 인코딩된 3-bit 값과 동일합니다. 예로 점퍼 0과 1을 납땜하고 점퍼 2를 납땜하지 않은 경우라면 주소는 1\*1 + 1\*2 + 0\*4 = 3 까지 증가하게 됩니다. 이렇게 하면 0x45 주소가 주어지게 됩니다.
+만약 모든 점퍼에 납떔을 하지 않는 경우, 카메라는 자동으로 autopilot 펌웨어로 탐지가 됩니다. PX4Flow의 I2C 주소를 수정한다면, 올바른 주소로 PX4 드라이버로 구동시켜야 합니다.:
 ```
 px4flow start                  # address=0x42 (default)
 px4flow stop
